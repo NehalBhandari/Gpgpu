@@ -1,0 +1,233 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Beamer Presentation
+% LaTeX Template
+% Version 1.0 (10/11/12)
+%
+% This template has been downloaded from:
+% http://www.LaTeXTemplates.com
+%
+% License:
+% CC BY-NC-SA 3.0 (http://creativecommons.org/licenses/by-nc-sa/3.0/)
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%----------------------------------------------------------------------------------------
+%	PACKAGES AND THEMES
+%----------------------------------------------------------------------------------------
+
+\documentclass{beamer}
+
+\mode<presentation> {
+
+% The Beamer class comes with a number of default slide themes
+% which change the colors and layouts of slides. Below this is a list
+% of all the themes, uncomment each in turn to see what they look like.
+
+%\usetheme{default}
+%\usetheme{AnnArbor}
+%\usetheme{Antibes}
+%\usetheme{Bergen}
+%\usetheme{Berkeley}
+%\usetheme{Berlin}
+%\usetheme{Boadilla}
+\usetheme{CambridgeUS}
+%\usetheme{Copenhagen}
+%\usetheme{Darmstadt}
+%\usetheme{Dresden}
+%\usetheme{Frankfurt}
+%\usetheme{Goettingen}
+%\usetheme{Hannover}
+%\usetheme{Ilmenau}
+%\usetheme{JuanLesPins}
+%\usetheme{Luebeck}
+%\usetheme{Madrid}
+%\usetheme{Malmoe}
+%\usetheme{Marburg}
+%\usetheme{Montpellier}
+%\usetheme{PaloAlto}
+%\usetheme{Pittsburgh}
+%\usetheme{Rochester}
+%\usetheme{Singapore}
+%\usetheme{Szeged}
+%\usetheme{Warsaw}
+
+% As well as themes, the Beamer class has a number of color themes
+% for any slide theme. Uncomment each of these in turn to see how it
+% changes the colors of your current slide theme.
+
+%\usecolortheme{albatross}
+%\usecolortheme{beaver}
+%\usecolortheme{beetle}
+%\usecolortheme{crane}
+%\usecolortheme{dolphin}
+%\usecolortheme{dove}
+%\usecolortheme{fly}
+%\usecolortheme{lily}
+%\usecolortheme{orchid}
+%\usecolortheme{rose}
+%\usecolortheme{seagull}
+%\usecolortheme{seahorse}
+%\usecolortheme{whale}
+%\usecolortheme{wolverine}
+
+%\setbeamertemplate{footline} % To remove the footer line in all slides uncomment this line
+%\setbeamertemplate{footline}[page number] % To replace the footer line in all slides with a simple slide count uncomment this line
+
+%\setbeamertemplate{navigation symbols}{} % To remove the navigation symbols from the bottom of all slides uncomment this line
+}
+
+\usepackage{graphicx} % Allows including images
+\usepackage{booktabs} % Allows the use of \toprule, \midrule and \bottomrule in tables
+
+%----------------------------------------------------------------------------------------
+%	TITLE PAGE
+%----------------------------------------------------------------------------------------
+
+\title[\textsc{Control Divergence}]{Resolving Control Divergence in \textsc{gpgpu} with dynamic warps}
+
+\author{Nehal Bhandari, Archit Gupta} % Your name
+\institute[IITB] % Your institution as it will appear on the bottom of every slide, may be shorthand to save space
+{
+\textsc{Indian Institute of Technology, Mumbai} \\ % Your institution for the title page
+}
+
+\begin{document}
+
+\begin{frame}
+\titlepage % Print the title page as the first slide
+\end{frame}
+
+\begin{frame}
+\frametitle{Overview} % Table of contents slide, comment this block out to remove it
+\tableofcontents % Throughout your presentation, if you choose to use \section{} and \subsection{} commands, these will automatically be printed on this slide as an overview of your presentation
+\end{frame}
+
+%----------------------------------------------------------------------------------------
+%	PRESENTATION SLIDES
+%----------------------------------------------------------------------------------------
+
+%------------------------------------------------
+\section{Functional View}
+%------------------------------------------------
+
+\begin{frame}
+\frametitle{Table}
+\begin{columns}[c]
+\column{0.45\textwidth}
+	\begin{itemize}
+		\item Information Flow : Presynaptic Axon $\rightarrow$ Active Synapse $\rightarrow$ Postsynaptic Neuron
+		\item Axonal Delays
+		\begin{itemize}
+			\item Stored at the Sending Neuron 
+			\item Implemented at Receiving Neuron
+		\end{itemize} 
+		\item Propagation through router: x-direction $\rightarrow$ y-direction
+	\end{itemize}
+
+\column{0.5\textwidth}
+	\begin{figure}
+	\includegraphics[scale=0.95]{syn.jpg}
+	\end{figure}
+
+\end{columns}
+\end{frame}
+%-----------------------------------------------
+\section{Physical View}
+%-----------------------------------------------
+
+
+\begin{frame}
+\frametitle{Function Blueprint}
+\begin{columns}[c]
+\column{0.45\textwidth}
+	\begin{itemize}
+		\item Chip Area 4.3 cm\textsuperscript{2}
+		\item Tech Node 28 nm (Samsung)
+		\item Power Density 20 mW/cm\textsuperscript{2} 
+		\item Memory 428 MBits
+	\end{itemize}
+
+\column{0.5\textwidth}
+	\begin{figure}
+	\includegraphics[scale=0.95]{phy.jpg}
+	\end{figure}
+
+\end{columns}
+
+\end{frame}
+
+
+%-----------------------------------------------
+\section{Experimental Results}
+%-----------------------------------------------
+\begin{frame}
+\frametitle{Real-time multiobject recognition on TrueNorth}
+\begin{columns}[c]
+\column{0.45\textwidth}
+The TrueNorth architecture was the programmed to perform pattern recognition on a pre-recorded data set (NeoVision 2 Tower Data)
+\begin{itemize}
+\item To detect people, bicyclists, cars, trucks, and buses that occur sparsely in images while minimizing false detection
+\item To correctly identify the object
+\end{itemize}
+
+\column{.5\textwidth}
+\begin{figure}
+\includegraphics[scale=0.6]{exp.jpg}
+\end{figure}
+
+\end{columns}
+\end{frame}
+
+\begin{frame}
+\frametitle{Programming Methodology}
+\begin{itemize}
+\item Input stream RGB 400x240 pixel (Converted to Spike Events)
+\item Orientation Selective Filters (Hubel and Wiesel) 
+\item Data processing in the Visual Cortrex\footnote{Mishkin et all Object Vision and Spatial Vision: Two cortical Pathways}
+	\begin{itemize}
+	\item Ventral - Visual Identification of Objects
+	\item Dorsal - Visual Location of Objects
+	\end{itemize}
+\item Neurons trained offline to detect individual objects
+\item What and Where pathways are combined
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Power and Energy}
+\begin{figure}
+\includegraphics[scale=0.8]{pow.jpg}
+\end{figure}
+A. Network Topology (Node: Cores and Edge: Network Connection)\\
+B. Total Power increases with both the Mean Spike Rate as well as the Active Synaptic Density\\
+C. The total power decreases with increasing Synaptic Density
+\end{frame}
+
+\begin{frame}
+\frametitle{Benchmarking the Performance}
+\begin{block}{Benchmarking Criteria}
+The performance of the chip has been evaluated in terms of energy per operation and against a state-of-the-art multiprocessor neuromorphic system\footnote{SpiNNaker, Manchester University, UK}. 
+\end{block}
+\begin{block}{Results}
+Configuring TrueNorth as the SpiNNaker(48 chips with 18 processors each), it consumers 769 times less energy per synaptic event. Whereas, while running at its own configuration, it consumers 176,000 times less energy. SOPS (Synaptic Operations per Second) - 46 GSOPS per Watt (peak perf 400 GSOPS per Watt)\footnote{AMD 6850 (GPGPU) has a performance of 10 GFLOPS/W, Ref: A Custom processor for energy efficient Scientific computing, IEEE Transactions on computers, December 2012}
+\end{block}
+\end{frame}
+
+%-----------------------------------------------
+\section{Conclusion}
+%-----------------------------------------------
+
+\begin{frame}
+\frametitle{Issues and Discussion}
+While TrueNorth seems to be an important step towards building a true neuromorphic computer. Some of the issues have not been dealt by the authors.
+\begin{itemize}
+\item Demonstrating the need for a neuromorphic approach for Pattern Recognition
+\item Developing a programming paradigm for this class of machines
+\item Accelerated training and training time
+\item Comparing performance with existing machines (taking non-neuromorphic approaches)
+\end{itemize}
+References\footnote{Paul A. Merolla, John V. Arthur, Rodrigo Alvarez-Icaza1, Andrew S. Cassidy, Jun Sawada, Filipp Akopyan, Bryan L. Jackson, Nabil Imam, Chen Guo, Yutaka Nakamura, Bernard Brezzo, Ivan Vo, Steven K. Esser, Rathinakumar Appuswamy, Brian Taba, Arnon Amir, Myron D. Flickner, William P. Risk, Rajit Manohar, Dharmendra S. Modha}
+\end{frame}
+
+
+\end{document}

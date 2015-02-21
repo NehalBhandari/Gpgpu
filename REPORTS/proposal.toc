@@ -1,5 +1,0 @@
-\beamer@endinputifotherversion {3.33pt}
-\beamer@sectionintoc {1}{Functional View}{3}{0}{1}
-\beamer@sectionintoc {2}{Physical View}{4}{0}{2}
-\beamer@sectionintoc {3}{Experimental Results}{5}{0}{3}
-\beamer@sectionintoc {4}{Conclusion}{9}{0}{4}

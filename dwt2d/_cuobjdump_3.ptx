@@ -1,0 +1,330 @@
+
+	.version 1.4
+	.target sm_10, map_f64_to_f32
+	// compiled with /home/archit/Soft/cuda/open64/lib//be
+	// nvopencc 4.0 built on 2011-05-12
+
+	//-----------------------------------------------------------
+	// Compiling /tmp/tmpxft_00004198_00000000-7_components.cpp3.i (/tmp/ccBI#.sPQcBf)
+	//-----------------------------------------------------------
+
+	//-----------------------------------------------------------
+	// Options:
+	//-----------------------------------------------------------
+	//  Target:ptx, ISA:sm_10, Endian:little, Pointer Size:64
+	//  -O3	(Optimization level)
+	//  -g0	(Debug level)
+	//  -m2	(Report advisories)
+	//-----------------------------------------------------------
+
+	.file	1	"<command-line>"
+	.file	2	"/tmp/tmpxft_00004198_00000000-6_components.cudafe2.gpu"
+	.file	3	"/usr/lib/gcc/x86_64-linux-gnu/4.4.7/include/stddef.h"
+	.file	4	"/home/archit/Soft/cuda/bin/../include/crt/device_runtime.h"
+	.file	5	"/home/archit/Soft/cuda/bin/../include/host_defines.h"
+	.file	6	"/home/archit/Soft/cuda/bin/../include/builtin_types.h"
+	.file	7	"/home/archit/Soft/cuda/bin/../include/device_types.h"
+	.file	8	"/home/archit/Soft/cuda/bin/../include/driver_types.h"
+	.file	9	"/home/archit/Soft/cuda/bin/../include/surface_types.h"
+	.file	10	"/home/archit/Soft/cuda/bin/../include/texture_types.h"
+	.file	11	"/home/archit/Soft/cuda/bin/../include/vector_types.h"
+	.file	12	"/home/archit/Soft/cuda/bin/../include/device_launch_parameters.h"
+	.file	13	"/home/archit/Soft/cuda/bin/../include/crt/storage_class.h"
+	.file	14	"/usr/include/x86_64-linux-gnu/bits/types.h"
+	.file	15	"/usr/include/time.h"
+	.file	16	"components.cu"
+	.file	17	"/home/archit/Soft/cuda/bin/../include/common_functions.h"
+	.file	18	"/home/archit/Soft/cuda/bin/../include/math_functions.h"
+	.file	19	"/home/archit/Soft/cuda/bin/../include/math_constants.h"
+	.file	20	"/home/archit/Soft/cuda/bin/../include/device_functions.h"
+	.file	21	"/home/archit/Soft/cuda/bin/../include/sm_11_atomic_functions.h"
+	.file	22	"/home/archit/Soft/cuda/bin/../include/sm_12_atomic_functions.h"
+	.file	23	"/home/archit/Soft/cuda/bin/../include/sm_13_double_functions.h"
+	.file	24	"/home/archit/Soft/cuda/bin/../include/sm_20_atomic_functions.h"
+	.file	25	"/home/archit/Soft/cuda/bin/../include/sm_20_intrinsics.h"
+	.file	26	"/home/archit/Soft/cuda/bin/../include/surface_functions.h"
+	.file	27	"/home/archit/Soft/cuda/bin/../include/texture_fetch_functions.h"
+	.file	28	"/home/archit/Soft/cuda/bin/../include/math_functions_dbl_ptx1.h"
+
+
+	.entry _Z21c_CopySrcToComponentsIfEvPT_S1_S1_Phi (
+		.param .u64 __cudaparm__Z21c_CopySrcToComponentsIfEvPT_S1_S1_Phi_d_r,
+		.param .u64 __cudaparm__Z21c_CopySrcToComponentsIfEvPT_S1_S1_Phi_d_g,
+		.param .u64 __cudaparm__Z21c_CopySrcToComponentsIfEvPT_S1_S1_Phi_d_b,
+		.param .u64 __cudaparm__Z21c_CopySrcToComponentsIfEvPT_S1_S1_Phi_d_src,
+		.param .s32 __cudaparm__Z21c_CopySrcToComponentsIfEvPT_S1_S1_Phi_pixels)
+	{
+	.reg .u16 %rh<4>;
+	.reg .u32 %r<15>;
+	.reg .u64 %rd<20>;
+	.reg .f32 %f<18>;
+	.reg .pred %p<4>;
+	.shared .align 1 .b8 __cuda___cuda_local_var_34058_43_non_const_sData36[768];
+	.loc	16	71	0
+$LDWbegin__Z21c_CopySrcToComponentsIfEvPT_S1_S1_Phi:
+	mov.u16 	%rh1, %ctaid.x;
+	mov.u16 	%rh2, %ntid.x;
+	mul.wide.u16 	%r1, %rh1, %rh2;
+	cvt.s32.u16 	%r2, %tid.x;
+	mul24.lo.s32 	%r3, %r2, 4;
+	mov.u32 	%r4, 767;
+	setp.gt.s32 	%p1, %r3, %r4;
+	@%p1 bra 	$Lt_0_1794;
+	.loc	16	84	0
+	mov.u64 	%rd1, __cuda___cuda_local_var_34058_43_non_const_sData36;
+	ld.param.u64 	%rd2, [__cudaparm__Z21c_CopySrcToComponentsIfEvPT_S1_S1_Phi_d_src];
+	mul.lo.s32 	%r5, %r1, 3;
+	shr.s32 	%r6, %r5, 2;
+	add.s32 	%r7, %r2, %r6;
+	cvt.s64.s32 	%rd3, %r7;
+	mul.wide.s32 	%rd4, %r7, 4;
+	add.u64 	%rd5, %rd2, %rd4;
+	ld.global.f32 	%f1, [%rd5+0];
+	cvt.s64.s32 	%rd6, %r2;
+	mul.wide.s32 	%rd7, %r2, 4;
+	add.u64 	%rd8, %rd1, %rd7;
+	st.shared.f32 	[%rd8+0], %f1;
+$Lt_0_1794:
+	mov.u64 	%rd1, __cuda___cuda_local_var_34058_43_non_const_sData36;
+	.loc	16	86	0
+	bar.sync 	0;
+	add.s32 	%r8, %r2, %r1;
+	ld.param.s32 	%r9, [__cudaparm__Z21c_CopySrcToComponentsIfEvPT_S1_S1_Phi_pixels];
+	setp.le.s32 	%p2, %r9, %r8;
+	@%p2 bra 	$Lt_0_2306;
+	.loc	16	42	0
+	mul24.lo.s32 	%r10, %r2, 3;
+	cvt.s64.s32 	%rd9, %r10;
+	add.u64 	%rd10, %rd9, %rd1;
+	cvt.s64.s32 	%rd11, %r8;
+	mul.wide.s32 	%rd12, %r8, 4;
+	ld.shared.u8 	%r11, [%rd10+0];
+	cvt.rn.f32.u32 	%f2, %r11;
+	mov.f32 	%f3, 0f437f0000;     	// 255
+	div.full.f32 	%f4, %f2, %f3;
+	mov.f32 	%f5, 0fbf000000;     	// -0.5
+	add.f32 	%f6, %f4, %f5;
+	ld.param.u64 	%rd13, [__cudaparm__Z21c_CopySrcToComponentsIfEvPT_S1_S1_Phi_d_r];
+	add.u64 	%rd14, %rd13, %rd12;
+	st.global.f32 	[%rd14+0], %f6;
+	.loc	16	43	0
+	ld.shared.u8 	%r12, [%rd10+1];
+	cvt.rn.f32.u32 	%f7, %r12;
+	mov.f32 	%f8, 0f437f0000;     	// 255
+	div.full.f32 	%f9, %f7, %f8;
+	mov.f32 	%f10, 0fbf000000;    	// -0.5
+	add.f32 	%f11, %f9, %f10;
+	ld.param.u64 	%rd15, [__cudaparm__Z21c_CopySrcToComponentsIfEvPT_S1_S1_Phi_d_g];
+	add.u64 	%rd16, %rd15, %rd12;
+	st.global.f32 	[%rd16+0], %f11;
+	.loc	16	44	0
+	ld.shared.u8 	%r13, [%rd10+2];
+	cvt.rn.f32.u32 	%f12, %r13;
+	mov.f32 	%f13, 0f437f0000;    	// 255
+	div.full.f32 	%f14, %f12, %f13;
+	mov.f32 	%f15, 0fbf000000;    	// -0.5
+	add.f32 	%f16, %f14, %f15;
+	ld.param.u64 	%rd17, [__cudaparm__Z21c_CopySrcToComponentsIfEvPT_S1_S1_Phi_d_b];
+	add.u64 	%rd18, %rd17, %rd12;
+	st.global.f32 	[%rd18+0], %f16;
+$Lt_0_2306:
+	.loc	16	99	0
+	exit;
+$LDWend__Z21c_CopySrcToComponentsIfEvPT_S1_S1_Phi:
+	} // _Z21c_CopySrcToComponentsIfEvPT_S1_S1_Phi
+
+	.entry _Z21c_CopySrcToComponentsIiEvPT_S1_S1_Phi (
+		.param .u64 __cudaparm__Z21c_CopySrcToComponentsIiEvPT_S1_S1_Phi_d_r,
+		.param .u64 __cudaparm__Z21c_CopySrcToComponentsIiEvPT_S1_S1_Phi_d_g,
+		.param .u64 __cudaparm__Z21c_CopySrcToComponentsIiEvPT_S1_S1_Phi_d_b,
+		.param .u64 __cudaparm__Z21c_CopySrcToComponentsIiEvPT_S1_S1_Phi_d_src,
+		.param .s32 __cudaparm__Z21c_CopySrcToComponentsIiEvPT_S1_S1_Phi_pixels)
+	{
+	.reg .u16 %rh<4>;
+	.reg .u32 %r<18>;
+	.reg .u64 %rd<20>;
+	.reg .f32 %f<3>;
+	.reg .pred %p<4>;
+	.shared .align 1 .b8 __cuda___cuda_local_var_34058_43_non_const_sData844[768];
+	.loc	16	71	0
+$LDWbegin__Z21c_CopySrcToComponentsIiEvPT_S1_S1_Phi:
+	mov.u16 	%rh1, %ctaid.x;
+	mov.u16 	%rh2, %ntid.x;
+	mul.wide.u16 	%r1, %rh1, %rh2;
+	cvt.s32.u16 	%r2, %tid.x;
+	mul24.lo.s32 	%r3, %r2, 4;
+	mov.u32 	%r4, 767;
+	setp.gt.s32 	%p1, %r3, %r4;
+	@%p1 bra 	$Lt_1_1794;
+	.loc	16	84	0
+	mov.u64 	%rd1, __cuda___cuda_local_var_34058_43_non_const_sData844;
+	ld.param.u64 	%rd2, [__cudaparm__Z21c_CopySrcToComponentsIiEvPT_S1_S1_Phi_d_src];
+	mul.lo.s32 	%r5, %r1, 3;
+	shr.s32 	%r6, %r5, 2;
+	add.s32 	%r7, %r2, %r6;
+	cvt.s64.s32 	%rd3, %r7;
+	mul.wide.s32 	%rd4, %r7, 4;
+	add.u64 	%rd5, %rd2, %rd4;
+	ld.global.f32 	%f1, [%rd5+0];
+	cvt.s64.s32 	%rd6, %r2;
+	mul.wide.s32 	%rd7, %r2, 4;
+	add.u64 	%rd8, %rd1, %rd7;
+	st.shared.f32 	[%rd8+0], %f1;
+$Lt_1_1794:
+	mov.u64 	%rd1, __cuda___cuda_local_var_34058_43_non_const_sData844;
+	.loc	16	86	0
+	bar.sync 	0;
+	add.s32 	%r8, %r2, %r1;
+	ld.param.s32 	%r9, [__cudaparm__Z21c_CopySrcToComponentsIiEvPT_S1_S1_Phi_pixels];
+	setp.le.s32 	%p2, %r9, %r8;
+	@%p2 bra 	$Lt_1_2306;
+	.loc	16	50	0
+	mul24.lo.s32 	%r10, %r2, 3;
+	cvt.s64.s32 	%rd9, %r10;
+	add.u64 	%rd10, %rd9, %rd1;
+	cvt.s64.s32 	%rd11, %r8;
+	mul.wide.s32 	%rd12, %r8, 4;
+	ld.shared.u8 	%r11, [%rd10+0];
+	sub.s32 	%r12, %r11, 128;
+	ld.param.u64 	%rd13, [__cudaparm__Z21c_CopySrcToComponentsIiEvPT_S1_S1_Phi_d_r];
+	add.u64 	%rd14, %rd13, %rd12;
+	st.global.s32 	[%rd14+0], %r12;
+	.loc	16	51	0
+	ld.shared.u8 	%r13, [%rd10+1];
+	sub.s32 	%r14, %r13, 128;
+	ld.param.u64 	%rd15, [__cudaparm__Z21c_CopySrcToComponentsIiEvPT_S1_S1_Phi_d_g];
+	add.u64 	%rd16, %rd15, %rd12;
+	st.global.s32 	[%rd16+0], %r14;
+	.loc	16	52	0
+	ld.shared.u8 	%r15, [%rd10+2];
+	sub.s32 	%r16, %r15, 128;
+	ld.param.u64 	%rd17, [__cudaparm__Z21c_CopySrcToComponentsIiEvPT_S1_S1_Phi_d_b];
+	add.u64 	%rd18, %rd17, %rd12;
+	st.global.s32 	[%rd18+0], %r16;
+$Lt_1_2306:
+	.loc	16	99	0
+	exit;
+$LDWend__Z21c_CopySrcToComponentsIiEvPT_S1_S1_Phi:
+	} // _Z21c_CopySrcToComponentsIiEvPT_S1_S1_Phi
+
+	.entry _Z20c_CopySrcToComponentIfEvPT_Phi (
+		.param .u64 __cudaparm__Z20c_CopySrcToComponentIfEvPT_Phi_d_c,
+		.param .u64 __cudaparm__Z20c_CopySrcToComponentIfEvPT_Phi_d_src,
+		.param .s32 __cudaparm__Z20c_CopySrcToComponentIfEvPT_Phi_pixels)
+	{
+	.reg .u16 %rh<4>;
+	.reg .u32 %r<11>;
+	.reg .u64 %rd<16>;
+	.reg .f32 %f<8>;
+	.reg .pred %p<4>;
+	.shared .align 1 .b8 __cuda___cuda_local_var_34090_43_non_const_sData1636[256];
+	.loc	16	103	0
+$LDWbegin__Z20c_CopySrcToComponentIfEvPT_Phi:
+	mov.u16 	%rh1, %ctaid.x;
+	mov.u16 	%rh2, %ntid.x;
+	mul.wide.u16 	%r1, %rh1, %rh2;
+	cvt.s32.u16 	%r2, %tid.x;
+	mul24.lo.s32 	%r3, %r2, 4;
+	mov.u32 	%r4, 255;
+	setp.gt.s32 	%p1, %r3, %r4;
+	@%p1 bra 	$Lt_2_1794;
+	.loc	16	116	0
+	mov.u64 	%rd1, __cuda___cuda_local_var_34090_43_non_const_sData1636;
+	ld.param.u64 	%rd2, [__cudaparm__Z20c_CopySrcToComponentIfEvPT_Phi_d_src];
+	shr.s32 	%r5, %r1, 2;
+	add.s32 	%r6, %r2, %r5;
+	cvt.s64.s32 	%rd3, %r6;
+	mul.wide.s32 	%rd4, %r6, 4;
+	add.u64 	%rd5, %rd2, %rd4;
+	ld.global.f32 	%f1, [%rd5+0];
+	cvt.s64.s32 	%rd6, %r2;
+	mul.wide.s32 	%rd7, %r2, 4;
+	add.u64 	%rd8, %rd1, %rd7;
+	st.shared.f32 	[%rd8+0], %f1;
+$Lt_2_1794:
+	mov.u64 	%rd1, __cuda___cuda_local_var_34090_43_non_const_sData1636;
+	.loc	16	118	0
+	bar.sync 	0;
+	add.s32 	%r7, %r2, %r1;
+	ld.param.s32 	%r8, [__cudaparm__Z20c_CopySrcToComponentIfEvPT_Phi_pixels];
+	setp.le.s32 	%p2, %r8, %r7;
+	@%p2 bra 	$Lt_2_2306;
+	.loc	16	58	0
+	cvt.s64.s32 	%rd9, %r2;
+	add.u64 	%rd10, %rd9, %rd1;
+	ld.shared.u8 	%r9, [%rd10+0];
+	cvt.rn.f32.u32 	%f2, %r9;
+	mov.f32 	%f3, 0f437f0000;     	// 255
+	div.full.f32 	%f4, %f2, %f3;
+	mov.f32 	%f5, 0fbf000000;     	// -0.5
+	add.f32 	%f6, %f4, %f5;
+	ld.param.u64 	%rd11, [__cudaparm__Z20c_CopySrcToComponentIfEvPT_Phi_d_c];
+	cvt.s64.s32 	%rd12, %r7;
+	mul.wide.s32 	%rd13, %r7, 4;
+	add.u64 	%rd14, %rd11, %rd13;
+	st.global.f32 	[%rd14+0], %f6;
+$Lt_2_2306:
+	.loc	16	128	0
+	exit;
+$LDWend__Z20c_CopySrcToComponentIfEvPT_Phi:
+	} // _Z20c_CopySrcToComponentIfEvPT_Phi
+
+	.entry _Z20c_CopySrcToComponentIiEvPT_Phi (
+		.param .u64 __cudaparm__Z20c_CopySrcToComponentIiEvPT_Phi_d_c,
+		.param .u64 __cudaparm__Z20c_CopySrcToComponentIiEvPT_Phi_d_src,
+		.param .s32 __cudaparm__Z20c_CopySrcToComponentIiEvPT_Phi_pixels)
+	{
+	.reg .u16 %rh<4>;
+	.reg .u32 %r<12>;
+	.reg .u64 %rd<16>;
+	.reg .f32 %f<3>;
+	.reg .pred %p<4>;
+	.shared .align 1 .b8 __cuda___cuda_local_var_34090_43_non_const_sData1916[256];
+	.loc	16	103	0
+$LDWbegin__Z20c_CopySrcToComponentIiEvPT_Phi:
+	mov.u16 	%rh1, %ctaid.x;
+	mov.u16 	%rh2, %ntid.x;
+	mul.wide.u16 	%r1, %rh1, %rh2;
+	cvt.s32.u16 	%r2, %tid.x;
+	mul24.lo.s32 	%r3, %r2, 4;
+	mov.u32 	%r4, 255;
+	setp.gt.s32 	%p1, %r3, %r4;
+	@%p1 bra 	$Lt_3_1794;
+	.loc	16	116	0
+	mov.u64 	%rd1, __cuda___cuda_local_var_34090_43_non_const_sData1916;
+	ld.param.u64 	%rd2, [__cudaparm__Z20c_CopySrcToComponentIiEvPT_Phi_d_src];
+	shr.s32 	%r5, %r1, 2;
+	add.s32 	%r6, %r2, %r5;
+	cvt.s64.s32 	%rd3, %r6;
+	mul.wide.s32 	%rd4, %r6, 4;
+	add.u64 	%rd5, %rd2, %rd4;
+	ld.global.f32 	%f1, [%rd5+0];
+	cvt.s64.s32 	%rd6, %r2;
+	mul.wide.s32 	%rd7, %r2, 4;
+	add.u64 	%rd8, %rd1, %rd7;
+	st.shared.f32 	[%rd8+0], %f1;
+$Lt_3_1794:
+	mov.u64 	%rd1, __cuda___cuda_local_var_34090_43_non_const_sData1916;
+	.loc	16	118	0
+	bar.sync 	0;
+	add.s32 	%r7, %r2, %r1;
+	ld.param.s32 	%r8, [__cudaparm__Z20c_CopySrcToComponentIiEvPT_Phi_pixels];
+	setp.le.s32 	%p2, %r8, %r7;
+	@%p2 bra 	$Lt_3_2306;
+	.loc	16	64	0
+	cvt.s64.s32 	%rd9, %r2;
+	add.u64 	%rd10, %rd9, %rd1;
+	ld.shared.u8 	%r9, [%rd10+0];
+	sub.s32 	%r10, %r9, 128;
+	ld.param.u64 	%rd11, [__cudaparm__Z20c_CopySrcToComponentIiEvPT_Phi_d_c];
+	cvt.s64.s32 	%rd12, %r7;
+	mul.wide.s32 	%rd13, %r7, 4;
+	add.u64 	%rd14, %rd11, %rd13;
+	st.global.s32 	[%rd14+0], %r10;
+$Lt_3_2306:
+	.loc	16	128	0
+	exit;
+$LDWend__Z20c_CopySrcToComponentIiEvPT_Phi:
+	} // _Z20c_CopySrcToComponentIiEvPT_Phi
+
+

@@ -1,0 +1,332 @@
+
+	.version 1.4
+	.target sm_10, map_f64_to_f32
+	// compiled with /home/archit/Soft/cuda/open64/lib//be
+	// nvopencc 4.0 built on 2011-05-12
+
+	//-----------------------------------------------------------
+	// Compiling /tmp/tmpxft_000026cb_00000000-7_kernel_gpu_cuda_wrapper.cpp3.i (/tmp/ccBI#.UMD9iL)
+	//-----------------------------------------------------------
+
+	//-----------------------------------------------------------
+	// Options:
+	//-----------------------------------------------------------
+	//  Target:ptx, ISA:sm_10, Endian:little, Pointer Size:64
+	//  -O3	(Optimization level)
+	//  -g0	(Debug level)
+	//  -m2	(Report advisories)
+	//-----------------------------------------------------------
+
+	.file	1	"<command-line>"
+	.file	2	"/tmp/tmpxft_000026cb_00000000-6_kernel_gpu_cuda_wrapper.cudafe2.gpu"
+	.file	3	"main.h"
+	.file	4	"/usr/lib/gcc/x86_64-linux-gnu/4.4.7/include/stddef.h"
+	.file	5	"/home/archit/Soft/cuda/bin/../include/crt/device_runtime.h"
+	.file	6	"/home/archit/Soft/cuda/bin/../include/host_defines.h"
+	.file	7	"/home/archit/Soft/cuda/bin/../include/builtin_types.h"
+	.file	8	"/home/archit/Soft/cuda/bin/../include/device_types.h"
+	.file	9	"/home/archit/Soft/cuda/bin/../include/driver_types.h"
+	.file	10	"/home/archit/Soft/cuda/bin/../include/surface_types.h"
+	.file	11	"/home/archit/Soft/cuda/bin/../include/texture_types.h"
+	.file	12	"/home/archit/Soft/cuda/bin/../include/vector_types.h"
+	.file	13	"/home/archit/Soft/cuda/bin/../include/device_launch_parameters.h"
+	.file	14	"/home/archit/Soft/cuda/bin/../include/crt/storage_class.h"
+	.file	15	"/usr/include/x86_64-linux-gnu/bits/types.h"
+	.file	16	"/usr/include/time.h"
+	.file	17	"kernel_gpu_cuda.cu"
+	.file	18	"/home/archit/Soft/cuda/bin/../include/common_functions.h"
+	.file	19	"/home/archit/Soft/cuda/bin/../include/math_functions.h"
+	.file	20	"/home/archit/Soft/cuda/bin/../include/math_constants.h"
+	.file	21	"/home/archit/Soft/cuda/bin/../include/device_functions.h"
+	.file	22	"/home/archit/Soft/cuda/bin/../include/sm_11_atomic_functions.h"
+	.file	23	"/home/archit/Soft/cuda/bin/../include/sm_12_atomic_functions.h"
+	.file	24	"/home/archit/Soft/cuda/bin/../include/sm_13_double_functions.h"
+	.file	25	"/home/archit/Soft/cuda/bin/../include/sm_20_atomic_functions.h"
+	.file	26	"/home/archit/Soft/cuda/bin/../include/sm_20_intrinsics.h"
+	.file	27	"/home/archit/Soft/cuda/bin/../include/surface_functions.h"
+	.file	28	"/home/archit/Soft/cuda/bin/../include/texture_fetch_functions.h"
+	.file	29	"/home/archit/Soft/cuda/bin/../include/math_functions_dbl_ptx1.h"
+
+
+	.entry _Z15kernel_gpu_cuda7par_str7dim_strP7box_strP11FOUR_VECTORPdS4_ (
+		.param .align 8 .b8 __cudaparm__Z15kernel_gpu_cuda7par_str7dim_strP7box_strP11FOUR_VECTORPdS4__d_par_gpu[8],
+		.param .align 8 .b8 __cudaparm__Z15kernel_gpu_cuda7par_str7dim_strP7box_strP11FOUR_VECTORPdS4__d_dim_gpu[56],
+		.param .u64 __cudaparm__Z15kernel_gpu_cuda7par_str7dim_strP7box_strP11FOUR_VECTORPdS4__d_box_gpu,
+		.param .u64 __cudaparm__Z15kernel_gpu_cuda7par_str7dim_strP7box_strP11FOUR_VECTORPdS4__d_rv_gpu,
+		.param .u64 __cudaparm__Z15kernel_gpu_cuda7par_str7dim_strP7box_strP11FOUR_VECTORPdS4__d_qv_gpu,
+		.param .u64 __cudaparm__Z15kernel_gpu_cuda7par_str7dim_strP7box_strP11FOUR_VECTORPdS4__d_fv_gpu)
+	{
+	.reg .u32 %r<45>;
+	.reg .u64 %rd<45>;
+	.reg .f32 %f<21>;
+	.reg .f64 %fd<45>;
+	.reg .pred %p<13>;
+	.shared .align 8 .b8 __cuda___cuda_local_var_31163_39_non_const_rA_shared96[3200];
+	.shared .align 8 .b8 __cuda___cuda_local_var_31173_34_non_const_qB_shared3296[800];
+	.shared .align 8 .b8 __cuda___cuda_local_var_31172_39_non_const_rB_shared4096[3200];
+	.loc	17	10	0
+$LDWbegin__Z15kernel_gpu_cuda7par_str7dim_strP7box_strP11FOUR_VECTORPdS4_:
+	.loc	17	21	0
+	cvt.s32.u16 	%r1, %tid.x;
+	mov.s32 	%r2, %r1;
+	cvt.s32.u16 	%r3, %ctaid.x;
+	cvt.s64.s32 	%rd1, %r3;
+	ld.param.s64 	%rd2, [__cudaparm__Z15kernel_gpu_cuda7par_str7dim_strP7box_strP11FOUR_VECTORPdS4__d_dim_gpu+16];
+	setp.le.s64 	%p1, %rd2, %rd1;
+	@%p1 bra 	$Lt_0_8450;
+	.loc	17	72	0
+	ld.param.u64 	%rd3, [__cudaparm__Z15kernel_gpu_cuda7par_str7dim_strP7box_strP11FOUR_VECTORPdS4__d_box_gpu];
+	mul.lo.u64 	%rd4, %rd1, 656;
+	add.u64 	%rd5, %rd3, %rd4;
+	ld.global.s32 	%r4, [%rd5+16];
+	mov.s32 	%r5, 99;
+	setp.le.s32 	%p2, %r1, %r5;
+	@!%p2 bra 	$Lt_0_8962;
+	mov.u64 	%rd6, __cuda___cuda_local_var_31163_39_non_const_rA_shared96;
+	mov.s32 	%r6, 227;
+	sub.s32 	%r7, %r6, %r1;
+	shr.s32 	%r8, %r7, 31;
+	mov.s32 	%r9, 127;
+	and.b32 	%r10, %r8, %r9;
+	add.s32 	%r11, %r10, %r7;
+	shr.s32 	%r12, %r11, 7;
+	cvt.s64.s32 	%rd7, %r4;
+	cvt.s64.s32 	%rd8, %r1;
+	mul.wide.s32 	%rd9, %r4, 32;
+	mul.wide.s32 	%rd10, %r1, 32;
+	add.u64 	%rd11, %rd10, %rd6;
+	ld.param.u64 	%rd12, [__cudaparm__Z15kernel_gpu_cuda7par_str7dim_strP7box_strP11FOUR_VECTORPdS4__d_rv_gpu];
+	add.s64 	%rd13, %rd12, %rd9;
+	add.s64 	%rd14, %rd10, %rd13;
+	mov.s32 	%r13, %r12;
+$Lt_0_9474:
+ //<loop> Loop body line 72, nesting depth: 1, estimated iterations: unknown
+	.loc	17	84	0
+	ld.global.f64 	%fd1, [%rd14+0];
+	st.shared.f64 	[%rd11+0], %fd1;
+	ld.global.f64 	%fd2, [%rd14+8];
+	st.shared.f64 	[%rd11+8], %fd2;
+	ld.global.f64 	%fd3, [%rd14+16];
+	st.shared.f64 	[%rd11+16], %fd3;
+	ld.global.f64 	%fd4, [%rd14+24];
+	st.shared.f64 	[%rd11+24], %fd4;
+	.loc	17	85	0
+	add.s32 	%r2, %r2, 128;
+	add.s64 	%rd14, %rd14, 4096;
+	add.u64 	%rd11, %rd11, 4096;
+	mov.u32 	%r14, 99;
+	setp.le.s32 	%p3, %r2, %r14;
+	@%p3 bra 	$Lt_0_9474;
+$Lt_0_8962:
+	mov.u64 	%rd6, __cuda___cuda_local_var_31163_39_non_const_rA_shared96;
+	.loc	17	90	0
+	bar.sync 	0;
+	ld.global.s32 	%r15, [%rd5+24];
+	add.s32 	%r16, %r15, 1;
+	mov.u32 	%r17, 0;
+	setp.le.s32 	%p4, %r16, %r17;
+	@%p4 bra 	$Lt_0_9986;
+	ld.param.f64 	%fd5, [__cudaparm__Z15kernel_gpu_cuda7par_str7dim_strP7box_strP11FOUR_VECTORPdS4__d_par_gpu+0];
+	add.f64 	%fd6, %fd5, %fd5;
+	mul.f64 	%fd7, %fd5, %fd6;
+	ld.param.u64 	%rd15, [__cudaparm__Z15kernel_gpu_cuda7par_str7dim_strP7box_strP11FOUR_VECTORPdS4__d_fv_gpu];
+	cvt.s64.s32 	%rd16, %r4;
+	mul.wide.s32 	%rd17, %r4, 32;
+	add.u64 	%rd18, %rd15, %rd17;
+	mov.s32 	%r18, 0;
+	mov.u64 	%rd19, __cuda___cuda_local_var_31173_34_non_const_qB_shared3296;
+	mov.u64 	%rd20, __cuda___cuda_local_var_31172_39_non_const_rB_shared4096;
+$Lt_0_10498:
+ //<loop> Loop body line 90, nesting depth: 1, estimated iterations: unknown
+	mov.s32 	%r2, %r1;
+	mov.u32 	%r19, 0;
+	setp.ne.s32 	%p5, %r18, %r19;
+	@%p5 bra 	$Lt_0_11010;
+	.loc	17	104	0
+	mov.s32 	%r20, %r3;
+	bra.uni 	$Lt_0_10754;
+$Lt_0_11010:
+	.loc	17	107	0
+	cvt.s64.s32 	%rd21, %r18;
+	mul.wide.s32 	%rd22, %r18, 24;
+	add.u64 	%rd23, %rd5, %rd22;
+	ld.global.s32 	%r20, [%rd23+20];
+$Lt_0_10754:
+	.loc	17	115	0
+	cvt.s64.s32 	%rd24, %r20;
+	mul.wide.s32 	%rd25, %r20, 656;
+	add.u64 	%rd26, %rd3, %rd25;
+	ld.global.s32 	%r21, [%rd26+16];
+	@!%p2 bra 	$Lt_0_11266;
+	mov.s32 	%r22, 227;
+	sub.s32 	%r23, %r22, %r1;
+	shr.s32 	%r24, %r23, 31;
+	mov.s32 	%r25, 127;
+	and.b32 	%r26, %r24, %r25;
+	add.s32 	%r27, %r26, %r23;
+	shr.s32 	%r28, %r27, 7;
+	cvt.s64.s32 	%rd27, %r1;
+	cvt.s64.s32 	%rd28, %r21;
+	mul.wide.s32 	%rd10, %r1, 32;
+	mul.wide.s32 	%rd29, %r1, 8;
+	add.u64 	%rd30, %rd10, %rd20;
+	add.u64 	%rd31, %rd29, %rd19;
+	ld.param.u64 	%rd32, [__cudaparm__Z15kernel_gpu_cuda7par_str7dim_strP7box_strP11FOUR_VECTORPdS4__d_rv_gpu];
+	mul.wide.s32 	%rd33, %r21, 32;
+	add.s64 	%rd34, %rd32, %rd33;
+	add.s64 	%rd35, %rd10, %rd34;
+	ld.param.u64 	%rd36, [__cudaparm__Z15kernel_gpu_cuda7par_str7dim_strP7box_strP11FOUR_VECTORPdS4__d_qv_gpu];
+	mul.wide.s32 	%rd37, %r21, 8;
+	add.s64 	%rd38, %rd36, %rd37;
+	add.s64 	%rd39, %rd29, %rd38;
+	mov.s32 	%r29, %r28;
+$Lt_0_11778:
+ //<loop> Loop body line 115, nesting depth: 2, estimated iterations: unknown
+	.loc	17	127	0
+	ld.global.f64 	%fd8, [%rd35+0];
+	st.shared.f64 	[%rd30+0], %fd8;
+	ld.global.f64 	%fd9, [%rd35+8];
+	st.shared.f64 	[%rd30+8], %fd9;
+	ld.global.f64 	%fd10, [%rd35+16];
+	st.shared.f64 	[%rd30+16], %fd10;
+	ld.global.f64 	%fd11, [%rd35+24];
+	st.shared.f64 	[%rd30+24], %fd11;
+	.loc	17	128	0
+	ld.global.f64 	%fd12, [%rd39+0];
+	st.shared.f64 	[%rd31+0], %fd12;
+	.loc	17	129	0
+	add.s32 	%r2, %r2, 128;
+	add.s64 	%rd39, %rd39, 1024;
+	add.u64 	%rd31, %rd31, 1024;
+	add.s64 	%rd35, %rd35, 4096;
+	add.u64 	%rd30, %rd30, 4096;
+	mov.u32 	%r30, 99;
+	setp.le.s32 	%p6, %r2, %r30;
+	@%p6 bra 	$Lt_0_11778;
+$Lt_0_11266:
+	.loc	17	134	0
+	bar.sync 	0;
+	mov.s32 	%r2, %r1;
+	@!%p2 bra 	$Lt_0_12290;
+	mov.s32 	%r31, 227;
+	sub.s32 	%r32, %r31, %r1;
+	shr.s32 	%r33, %r32, 31;
+	mov.s32 	%r34, 127;
+	and.b32 	%r35, %r33, %r34;
+	add.s32 	%r36, %r35, %r32;
+	shr.s32 	%r37, %r36, 7;
+	cvt.s64.s32 	%rd40, %r1;
+	mul.wide.s32 	%rd10, %r1, 32;
+	add.u64 	%rd11, %rd10, %rd6;
+	add.s64 	%rd41, %rd18, %rd10;
+	mov.s32 	%r38, %r37;
+$Lt_0_12802:
+ //<loop> Loop body line 134, nesting depth: 1, estimated iterations: unknown
+	mov.s64 	%rd42, %rd20;
+	mov.s64 	%rd43, %rd19;
+	ld.shared.f64 	%fd13, [%rd11+0];
+	ld.shared.f64 	%fd14, [%rd11+16];
+	ld.shared.f64 	%fd15, [%rd11+8];
+	ld.shared.f64 	%fd16, [%rd11+24];
+	ld.global.f64 	%fd17, [%rd41+24];
+	mov.s32 	%r39, 0;
+$Lt_0_13570:
+ //<loop> Loop body line 134, nesting depth: 2, iterations: 100
+	.loc	17	166	0
+	ld.shared.f64 	%fd18, [%rd42+16];
+	ld.shared.f64 	%fd19, [%rd42+8];
+	ld.shared.f64 	%fd20, [%rd42+24];
+	ld.shared.f64 	%fd21, [%rd42+0];
+	.loc	17	134	0
+	ld.shared.f64 	%fd13, [%rd11+0];
+	.loc	17	166	0
+	add.f64 	%fd22, %fd21, %fd13;
+	.loc	17	134	0
+	ld.shared.f64 	%fd14, [%rd11+16];
+	.loc	17	166	0
+	mul.f64 	%fd23, %fd14, %fd18;
+	.loc	17	134	0
+	ld.shared.f64 	%fd15, [%rd11+8];
+	.loc	17	166	0
+	mad.rn.f64 	%fd24, %fd15, %fd19, %fd23;
+	.loc	17	134	0
+	ld.shared.f64 	%fd16, [%rd11+24];
+	.loc	17	166	0
+	mad.rn.f64 	%fd25, %fd16, %fd20, %fd24;
+	sub.f64 	%fd26, %fd22, %fd25;
+	.loc	17	178	0
+	mul.f64 	%fd27, %fd7, %fd26;
+	neg.f64 	%fd28, %fd27;
+	ld.shared.f64 	%fd29, [%rd43+0];
+	cvt.rn.f32.f64 	%f1, %fd28;
+	mov.f32 	%f2, 0f42d20000;     	// 105
+	setp.gt.f32 	%p7, %f1, %f2;
+	mov.f32 	%f3, 0fc2d20000;     	// -105
+	setp.lt.f32 	%p8, %f1, %f3;
+	mov.f32 	%f4, 0f3fb8aa3b;     	// 1.4427
+	mul.f32 	%f5, %f1, %f4;
+	cvt.rzi.f32.f32 	%f6, %f5;
+	ex2.approx.f32 	%f7, %f6;
+	mov.f32 	%f8, 0fbf317200;     	// -0.693146
+	mad.f32 	%f9, %f8, %f6, %f1;
+	mov.f32 	%f10, 0fb5bfbe8e;    	// -1.42861e-06
+	mad.f32 	%f11, %f10, %f6, %f9;
+	mov.f32 	%f12, 0f3fb8aa3b;    	// 1.4427
+	mul.f32 	%f13, %f11, %f12;
+	ex2.approx.f32 	%f14, %f13;
+	mul.f32 	%f15, %f7, %f14;
+	mov.f32 	%f16, 0f00000000;    	// 0
+	selp.f32 	%f17, %f16, %f15, %p8;
+	mov.f32 	%f18, 0f7f800000;    	// ((1.0F)/(0.0F))
+	selp.f32 	%f19, %f18, %f17, %p7;
+	cvt.f64.f32 	%fd30, %f19;
+	ld.global.f64 	%fd31, [%rd41+0];
+	mad.rn.f64 	%fd32, %fd29, %fd30, %fd31;
+	st.global.f64 	[%rd41+0], %fd32;
+	.loc	17	179	0
+	add.f64 	%fd33, %fd30, %fd30;
+	ld.global.f64 	%fd34, [%rd41+8];
+	sub.f64 	%fd35, %fd15, %fd19;
+	mul.f64 	%fd36, %fd33, %fd35;
+	mad.rn.f64 	%fd37, %fd29, %fd36, %fd34;
+	st.global.f64 	[%rd41+8], %fd37;
+	.loc	17	180	0
+	ld.global.f64 	%fd38, [%rd41+16];
+	sub.f64 	%fd39, %fd14, %fd18;
+	mul.f64 	%fd40, %fd33, %fd39;
+	mad.rn.f64 	%fd41, %fd29, %fd40, %fd38;
+	st.global.f64 	[%rd41+16], %fd41;
+	.loc	17	181	0
+	sub.f64 	%fd42, %fd16, %fd20;
+	mul.f64 	%fd43, %fd33, %fd42;
+	mad.rn.f64 	%fd17, %fd29, %fd43, %fd17;
+	st.global.f64 	[%rd41+24], %fd17;
+	add.s32 	%r39, %r39, 1;
+	add.u64 	%rd43, %rd43, 8;
+	add.u64 	%rd42, %rd42, 32;
+	mov.u32 	%r40, 100;
+	setp.ne.s32 	%p9, %r39, %r40;
+	@%p9 bra 	$Lt_0_13570;
+	add.s32 	%r2, %r2, 128;
+	add.s64 	%rd41, %rd41, 4096;
+	add.u64 	%rd11, %rd11, 4096;
+	mov.u32 	%r41, 99;
+	setp.le.s32 	%p10, %r2, %r41;
+	@%p10 bra 	$Lt_0_12802;
+$Lt_0_12290:
+	.loc	17	194	0
+	bar.sync 	0;
+	.loc	17	97	0
+	add.s32 	%r18, %r18, 1;
+	ld.global.s32 	%r42, [%rd5+24];
+	add.s32 	%r43, %r42, 1;
+	setp.lt.s32 	%p11, %r18, %r43;
+	@%p11 bra 	$Lt_0_10498;
+$Lt_0_9986:
+$Lt_0_8450:
+	.loc	17	214	0
+	exit;
+$LDWend__Z15kernel_gpu_cuda7par_str7dim_strP7box_strP11FOUR_VECTORPdS4_:
+	} // _Z15kernel_gpu_cuda7par_str7dim_strP7box_strP11FOUR_VECTORPdS4_
+
+

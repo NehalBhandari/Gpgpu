@@ -1,0 +1,225 @@
+//HEADER
+.version 1.4+
+.target sm_10, map_f64_to_f32
+//END HEADER
+
+
+//INSTRUCTIONS
+
+.const .u32 constant1_Z15kernel_gpu_cuda7par_str7dim_strP7box_strP11FOUR_VECTORPdS4_[9] = {
+          0x00000063, 0x42d20000, 0xc2d20000, 0xbf317200, 
+          0xb5bfbe8e, 0x7f800000, 0x00000064, 0x00000014, 
+          0x00000000
+};
+
+
+
+
+
+.entry  _Z15kernel_gpu_cuda7par_str7dim_strP7box_strP11FOUR_VECTORPdS4_ (
+	.param  .b8 __cudaparm__Z15kernel_gpu_cuda7par_str7dim_strP7box_strP11FOUR_VECTORPdS4__d_par_gpu [ 8 ] ,
+	.param  .b8 __cudaparm__Z15kernel_gpu_cuda7par_str7dim_strP7box_strP11FOUR_VECTORPdS4__d_dim_gpu [ 56 ] ,
+	.param  .u64 __cudaparm__Z15kernel_gpu_cuda7par_str7dim_strP7box_strP11FOUR_VECTORPdS4__d_box_gpu ,
+	.param  .u64 __cudaparm__Z15kernel_gpu_cuda7par_str7dim_strP7box_strP11FOUR_VECTORPdS4__d_rv_gpu ,
+	.param  .u64 __cudaparm__Z15kernel_gpu_cuda7par_str7dim_strP7box_strP11FOUR_VECTORPdS4__d_qv_gpu ,
+	.param  .u64 __cudaparm__Z15kernel_gpu_cuda7par_str7dim_strP7box_strP11FOUR_VECTORPdS4__d_fv_gpu )
+{
+	.reg .u32 $r<14>;
+	.reg .u32 $ofs<4>;
+	.reg .pred $p<4>;
+
+	.reg .u32 $r124;
+
+	.reg .u32 $o127;
+
+	
+	cvt.u32.u16 $r1, %ctaid.x;
+	shr.s32 $r3, $r1, 0x0000001f;
+	set.eq.s32.s32 $p0/$o127, s[0x002c], $r3;
+	@$p0.ne set.le.u32.u32 $p0/$o127, s[0x0028], $r1;
+	cvt.u32.u16 $r2, $r0.lo;
+	@$p0.eq set.lt.s32.s32 $p0/$o127, s[0x002c], $r3;
+	mov.half.u32 $r3, $r1;
+	mov.half.u32 $r0, $r2;
+	@$p0.ne retp;
+	mov.u32 $r4, 0x00000290;
+	mul.wide.u16 $r5, $r3.lo, $r4.hi;
+	mad.wide.u16 $r5, $r3.hi, $r4.lo, $r5;
+	shl.u32 $r5, $r5, 0x00000010;
+	mad.wide.u16 $r3, $r3.lo, $r4.lo, $r5;
+	add.u32 $r4, s[0x0050], $r3;
+	set.le.s32.s32 $p1/$r5, $r0, constant1_Z15kernel_gpu_cuda7par_str7dim_strP7box_strP11FOUR_VECTORPdS4_[0x0000];
+	add.u32 $r3, $r4, 0x00000010;
+	ld.global.u32 $r3, [$r3];
+	cvt.s32.s32 $p0|$o127, $r5;
+	ssy 0x00000148;
+	@$p1.eq bra l0x00000148;
+	shl.u32 $r5, $r0, 0x00000005;
+	shl.u32 $r6, $r3, 0x00000005;
+	add.u32 $r7, $r5, 0x00000070;
+	add.u32 $r6, s[0x0058], $r6;
+	shl.b32 $ofs1, $r7, 0x0;
+	add.u32 $r5, $r5, $r6;
+	l0x000000d0: ld.global.u32 $r9, [$r5];
+	add.u32 $r6, $r5, 0x00000008;
+	ld.global.u32 $r8, [$r6];
+	add.u32 $r6, $r5, 0x00000010;
+	ld.global.u32 $r7, [$r6];
+	add.u32 $r6, $r5, 0x00000018;
+	ld.global.u32 $r6, [$r6];
+	mov.u32 s[$ofs1+=0x0008], $r9;
+	mov.u32 s[$ofs1+=0x0008], $r8;
+	mov.u32 s[$ofs1+=0x0008], $r7;
+	add.u32 $r2, $r2, 0x00000080;
+	mov.u32 s[$ofs1+=0x0fe8], $r6;
+	set.le.s32.s32 $p1/$o127, $r2, constant1_Z15kernel_gpu_cuda7par_str7dim_strP7box_strP11FOUR_VECTORPdS4_[0x0000];
+	add.u32 $r5, $r5, 0x00001000;
+	@$p1.ne bra l0x000000d0;
+	l0x00000148: nop;
+	bar.sync 0x00000000;
+	add.u32 $r2, $r4, 0x00000018;
+	ld.global.u32 $r2, [$r2];
+	add.u32 $r2, $r2, 0x00000001;
+	set.le.s32.s32 $p1/$o127, $r2, $r124;
+	@$p1.ne retp;
+	mov.u32 $r2, s[0x0010];
+	shl.u32 $r3, $r3, 0x00000005;
+	add.f32 $r2, s[0x0010], $r2;
+	mov.u32 $r8, $r124;
+	add.u32 $r6, s[0x0068], $r3;
+	mul.f32 $r7, s[0x0010], $r2;
+	l0x000001b0: set.ne.s32.s32 $p1/$o127, $r8, $r124;
+	mov.u32 $r3, $r0;
+	@$p1.equ mov.u32 $r2, $r1;
+	@$p1.ne shl.u32 $r2, $r8, 0x00000004;
+	@$p1.ne shl.u32 $r5, $r8, 0x00000003;
+	@$p1.ne add.u32 $r2, $r2, $r5;
+	@$p1.ne add.u32 $r2, $r4, $r2;
+	@$p1.ne add.u32 $r2, $r2, constant1_Z15kernel_gpu_cuda7par_str7dim_strP7box_strP11FOUR_VECTORPdS4_[0x001c];
+	@$p1.ne ld.global.u32 $r2, [$r2];
+	mov.u32 $r5, 0x00000290;
+	mul.wide.u16 $r9, $r2.lo, $r5.hi;
+	mad.wide.u16 $r9, $r2.hi, $r5.lo, $r9;
+	shl.u32 $r9, $r9, 0x00000010;
+	mad.wide.u16 $r2, $r2.lo, $r5.lo, $r9;
+	add.u32 $r2, s[0x0050], $r2;
+	add.u32 $r2, $r2, 0x00000010;
+	ld.global.u32 $r2, [$r2];
+	ssy 0x00000330;
+	@$p0.eq bra l0x00000330;
+	shl.u32 $r5, $r0, 0x00000005;
+	add.u32 $r9, $r0, 0x0000019e;
+	shl.u32 $r12, $r2, 0x00000005;
+	shl.u32 $r11, $r2, 0x00000003;
+	add.u32 $r10, $r5, 0x00001010;
+	shl.u32 $r2, $r0, 0x00000003;
+	add.u32 $r12, s[0x0058], $r12;
+	add.u32 $r11, s[0x0060], $r11;
+	shl.b32 $ofs2, $r10, 0x0;
+	shl.b32 $ofs1, $r9, 0x00000003;
+	add.half.u32 $r5, $r5, $r12;
+	add.half.u32 $r2, $r2, $r11;
+	l0x000002a0: ld.global.u32 $r9, [$r5];
+	add.u32 $r10, $r5, 0x00000008;
+	ld.global.u32 $r10, [$r10];
+	mov.u32 s[$ofs2+=0x0008], $r9;
+	add.u32 $r9, $r5, 0x00000010;
+	ld.global.u32 $r11, [$r9];
+	ld.global.u32 $r9, [$r2];
+	mov.u32 s[$ofs2+=0x0008], $r10;
+	add.u32 $r10, $r5, 0x00000018;
+	ld.global.u32 $r10, [$r10];
+	mov.u32 s[$ofs2+=0x0008], $r11;
+	mov.u32 s[$ofs2+=0x0fe8], $r10;
+	add.u32 $r3, $r3, 0x00000080;
+	mov.u32 s[$ofs1+=0x0400], $r9;
+	add.u32 $r2, $r2, 0x00000400;
+	set.le.s32.s32 $p1/$o127, $r3, constant1_Z15kernel_gpu_cuda7par_str7dim_strP7box_strP11FOUR_VECTORPdS4_[0x0000];
+	add.u32 $r5, $r5, 0x00001000;
+	@$p1.ne bra l0x000002a0;
+	l0x00000330: nop;
+	bar.sync 0x00000000;
+	ssy 0x00000548;
+	mov.u32 $r2, $r0;
+	@$p0.eq bra l0x00000548;
+	shl.u32 $r3, $r0, 0x00000005;
+	add.u32 $r5, $r3, 0x00000070;
+	shl.b32 $ofs1, $r5, 0x0;
+	add.u32 $r5, $r6, $r3;
+	l0x00000378: mov.u32 $r3, 0x00000cf0;
+	mov.u32 $r9, 0x00001010;
+	add.u32 $r10, $r5, 0x00000018;
+	ld.global.u32 $r10, [$r10];
+	shl.b32 $ofs2, $r3, 0x0;
+	shl.b32 $ofs3, $r9, 0x0;
+	mov.u32 $r9, $r124;
+	l0x000003b0: ld.global.u32 $r11, [$r5];
+	mov.half.u32 $r3, s[$ofs3+0x0010];
+	mov.half.u32 $r12, s[$ofs3+0x0008];
+	mul.f32 $r3, s[$ofs1+0x0010], $r3;
+	mad.f32 $r13, s[$ofs1+0x0008], $r12, $r3;
+	mov.half.u32 $r12, s[$ofs3+0x0018];
+	mov.half.u32 $r3, s[$ofs1+0x0000];
+	mad.f32 $r12, s[$ofs1+0x0018], $r12, $r13;
+	add.half.f32 $r3, s[$ofs3+=0x0008], $r3;
+	add.half.f32 $r3, $r3, -$r12;
+	mul.f32 $r3, $r7, $r3;
+	mul.f32 $r12, -$r3, 0x3fb8aa3b;
+	cvt.rz.f32.f32 $r13, $r12;
+	mad.f32 $r12, $r13, constant1_Z15kernel_gpu_cuda7par_str7dim_strP7box_strP11FOUR_VECTORPdS4_[0x000c], -$r3;
+	mad.f32 $r12, $r13, 0xb5bfbe8e, $r12;
+	mul.f32 $r12, $r12, 0x3fb8aa3b;
+	nop; //ex2.f32 $r13, $r13;
+	nop; //ex2.f32 $r12, $r12;
+	ex2.f32 $r13, $r13;
+	ex2.f32 $r12, $r12;
+	mul.f32 $r12, $r13, $r12;
+	set.lt.f32.f32 $p2/$o127, -$r3, constant1_Z15kernel_gpu_cuda7par_str7dim_strP7box_strP11FOUR_VECTORPdS4_[0x0008];
+	set.gt.f32.f32 $p1/$o127, -$r3, constant1_Z15kernel_gpu_cuda7par_str7dim_strP7box_strP11FOUR_VECTORPdS4_[0x0004];
+	@$p2.ne mov.u32 $r12, $r124;
+	@$p1.ne mov.u32 $r12, constant1_Z15kernel_gpu_cuda7par_str7dim_strP7box_strP11FOUR_VECTORPdS4_[0x0014];
+	cvt.f32.f32 $r12, $r12;
+	mad.f32 $r11, s[$ofs2+0x0000], $r12, $r11;
+	mov.u32 $r3, s[$ofs3+=0x0008];
+	st.global.u32 [$r5], $r11;
+	add.half.f32 $r3, s[$ofs1+0x0008], -$r3;
+	add.half.f32 $r11, $r12, $r12;
+	add.u32 $r12, $r5, 0x00000008;
+	ld.global.u32 $r13, [$r12];
+	mul.f32 $r3, $r11, $r3;
+	mad.f32 $r3, s[$ofs2+0x0000], $r3, $r13;
+	st.global.u32 [$r12], $r3;
+	mov.half.u32 $r3, s[$ofs3+=0x0008];
+	add.half.f32 $r13, s[$ofs1+0x0010], -$r3;
+	add.u32 $r3, $r5, 0x00000010;
+	ld.global.u32 $r12, [$r3];
+	mul.f32 $r13, $r11, $r13;
+	mad.f32 $r12, s[$ofs2+0x0000], $r13, $r12;
+	st.global.u32 [$r3], $r12;
+	mov.half.u32 $r3, s[$ofs3+=0x0008];
+	add.half.f32 $r3, s[$ofs1+0x0018], -$r3;
+	mul.f32 $r3, $r11, $r3;
+	mad.f32 $r10, s[$ofs2+=0x0008], $r3, $r10;
+	add.u32 $r9, $r9, 0x00000001;
+	add.u32 $r3, $r5, 0x00000018;
+	set.ne.s32.s32 $p1/$o127, $r9, constant1_Z15kernel_gpu_cuda7par_str7dim_strP7box_strP11FOUR_VECTORPdS4_[0x0018];
+	st.global.u32 [$r3], $r10;
+	@$p1.ne bra l0x000003b0;
+	add.u32 $r2, $r2, 0x00000080;
+	set.le.s32.s32 $p1/$o127, $r2, constant1_Z15kernel_gpu_cuda7par_str7dim_strP7box_strP11FOUR_VECTORPdS4_[0x0000];
+	add.u32 $ofs1, $ofs1, 0x00001000;
+	add.u32 $r5, $r5, 0x00001000;
+	@$p1.ne bra l0x00000378;
+	l0x00000548: nop;
+	bar.sync 0x00000000;
+	add.u32 $r2, $r4, 0x00000018;
+	ld.global.u32 $r2, [$r2];
+	add.u32 $r8, $r8, 0x00000001;
+	add.u32 $r2, $r2, 0x00000001;
+	set.lt.s32.s32 $p1/$o127, $r8, $r2;
+	@$p1.ne bra l0x000001b0;
+	nop;
+
+	l_exit: exit;
+}
+//END INSTRUCTIONS

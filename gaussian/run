@@ -1,0 +1,2 @@
+./gaussian -f ../../data/gaussian/matrix4.txt > Trace_matrix.log
+./gaussian -s 16 > Trace_16.log

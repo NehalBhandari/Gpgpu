@@ -1,5 +1,8 @@
 #Configure
 #CUDA_INSTALL_PATH ?= /usr/local/cuda
+include ../../common/make.config
+
+CUDA_DIR := /usr/local/cuda
 CUDA_INSTALL_PATH = $(CUDA_DIR)
 EXECUTABLE := dwt2d
 
@@ -9,7 +12,7 @@ cudagdb=0 #compile for use with cuda-gdb, note that 'dbg' must be 1 as well
 performancetest=1
 
 # NVCC Options
-NVCCFLAGS += -arch sm_10
+NVCCFLAGS += -arch sm_11
 
 # Files
 CFILES := 
@@ -18,9 +21,6 @@ CUFILES := main.cu dwt.cu components.cu dwt_cuda/fdwt53.cu dwt_cuda/fdwt97.cu dw
 
 # Includes
 INCLUDES := -I. -I$(CUDA_INSTALL_PATH)/include
-
-include ../../common/make.config
-
 
 # Common flags
 COMMONFLAGS += $(INCLUDES) 
@@ -102,7 +102,7 @@ CUOBJS=$(CUFILES:.cu=.cu.o)
 	$(NVCC) $(OUTPUT) $(NVCCFLAGS) -c $< -o $@
 
 %.cpp.o: %.cpp
-	$(CXX) $(CXXFLAGS) -c $< -o $@
+	$(NVCC) -ccbin $(CXX) $(CXXFLAGS) -c $< -o $@
 
 $(EXECUTABLE): $(COBJS) $(CXXOBJS) $(CUOBJS) 
 	$(LINK) -o $(EXECUTABLE) $(COBJS) $(CXXOBJS) $(CUOBJS) $(LDFLAGS)

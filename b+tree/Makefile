@@ -1,51 +1,12 @@
 include ../../common/make.config
 
 CUDA_LIB = -lcuda -lcudart
-CUDA_FLAG = -arch sm_30
+CUDA_FLAG = -arch sm_11
+CUBIN_FLAG := -cubin -gencode arch=compute_37,code=sm_37
 
 # ====================================================================================================100
 #	END
 # ====================================================================================================100
-
-# ======================================================================================================================================================150
-#	OPENCL
-# ======================================================================================================================================================150
-
-# ====================================================================================================100
-#	NVIDIA OpenCL header/library [NVIDIA SDK]
-# ====================================================================================================100
-
-# OCL_DIR =/af14/lgs9a/Programs/NVIDIA/SDK
-# OCL_INC_DIR = -I$(OCL_DIR)/OpenCL/common/inc
-# OCL_LIB_DIR = -L$(OCL_DIR)/OpenCL/common/lib
-
-# ====================================================================================================100
-#	AMD OpenCL header/library [AMD SDK]
-# ====================================================================================================100
-
-# OCL_DIR = /af14/lgs9a/Programs/AMD/SDK
-# OCL_INC_DIR = -I$(OCL_DIR)/include/ 
-# OCL_LIB_DIR = -L$(OCL_DIR)/lib/x86/
-# ifeq ($(shell uname -m), x86_64)
-    # ifeq ($(shell if test -d $(OCL_DIR)/lib/x86_64/; then echo T; else echo F; fi), T)
-#    	# OCL_LIB_DIR = -L$(OCL_DIR)/lib/x86_64/
-    # endif
-# endif
-
-# ====================================================================================================100
-#	END
-# ====================================================================================================100
-
-# ======================================================================================================================================================150
-#	COMPILER
-# ======================================================================================================================================================150
-
-# ====================================================================================================100
-#	ICC
-# ====================================================================================================100
-
-# C_C = icc
-# OMP_FLAG = -openmp
 
 # ====================================================================================================100
 #	GCC
@@ -94,7 +55,7 @@ b+tree.out:	./main.o \
 		./util/timer/timer.o \
 		./util/num/num.o \
 		./util/cuda/cuda.o
-	$(C_C)	./main.o \
+	$(CUD_C) -ccbin $(C_C) ./main.o \
 			./kernel/kernel_gpu_cuda_wrapper.o \
 			./kernel/kernel_gpu_cuda_wrapper_2.o \
 			./util/timer/timer.o \
@@ -122,13 +83,13 @@ main.o:	./common.h \
 			-o ./main.o \
 			-O3
 
-# ======================================================================================================================================================150
+# =====================================
 #	KERNELS
-# ======================================================================================================================================================150
+# =====================================
 
 ./kernel/kernel_gpu_cuda_wrapper.o:	./common.h \
-									./kernel/kernel_gpu_cuda_wrapper.h \
-									./kernel/kernel_gpu_cuda_wrapper.cu
+					./kernel/kernel_gpu_cuda_wrapper.h \
+					./kernel/kernel_gpu_cuda_wrapper.cu
 	$(CUD_C) $(KERNEL_DIM) ./kernel/kernel_gpu_cuda_wrapper.cu \
 				-c \
 				-o ./kernel/kernel_gpu_cuda_wrapper.o \
@@ -136,13 +97,21 @@ main.o:	./common.h \
 				$(CUDA_FLAG)
 
 ./kernel/kernel_gpu_cuda_wrapper_2.o:	./common.h \
-										./kernel/kernel_gpu_cuda_wrapper_2.h \
-										./kernel/kernel_gpu_cuda_wrapper_2.cu
+					./kernel/kernel_gpu_cuda_wrapper_2.h \
+					./kernel/kernel_gpu_cuda_wrapper_2.cu
 	$(CUD_C) $(KERNEL_DIM) ./kernel/kernel_gpu_cuda_wrapper_2.cu \
 				-c \
 				-o ./kernel/kernel_gpu_cuda_wrapper_2.o \
 				-O3 \
 				$(CUDA_FLAG)
+
+cfg:	./kernel/kernel_gpu_cuda_wrapper_2.cu \
+	./kernel/kernel_gpu_cuda_wrapper.cu 
+	$(CUD_C) $(KERNEL_DIM) $(CUBIN_FLAG) ./kernel/kernel_gpu_cuda_wrapper.cu -O3 
+	nvdisasm -cfg kernel_gpu_cuda_wrapper.cubin|dot -ofindK.png -Tpng
+	$(CUD_C) $(KERNEL_DIM) $(CUBIN_FLAG) ./kernel/kernel_gpu_cuda_wrapper_2.cu -O3 
+	nvdisasm -cfg kernel_gpu_cuda_wrapper_2.cubin|dot -ofindRangeK.png -Tpng
+	rm -f ./kernel/kernel_gpu_cuda_wrapper.o ./kernel/kernel_gpu_cuda_wrapper_2.o *.cubin 
 
 # ======================================================================================================================================================150
 #	UTILITIES
@@ -182,7 +151,7 @@ main.o:	./common.h \
 # ========================================================================================================================================================================================================200
 
 clean:
-	rm	*.log \
+	rm	-f *.log \
 		*.o *.out \
 		./kernel/*.o \
 		./util/timer/*.o \

@@ -91,6 +91,8 @@ void BFSGraph( int argc, char** argv)
 		num_of_threads_per_block = MAX_THREADS_PER_BLOCK; 
 	}
 
+	// allocate memory for Branch History Tables
+
 	// allocate host memory
 	Node* h_graph_nodes = (Node*) malloc(sizeof(Node)*no_of_nodes);
 	bool *h_graph_mask = (bool*) malloc(sizeof(bool)*no_of_nodes);
